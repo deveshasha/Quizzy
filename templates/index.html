@@ -1,0 +1,71 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quiz | Test</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>QuizUp</title>
+  {% load staticfiles %}
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+</head>
+<body>
+		
+	<form style="margin-left: 10%" action="/result/" onsubmit="return validate(this);" method="POST">
+    {% csrf_token %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li>{{forloop.counter}}. {{ question.q_text }}</li>
+        <input class="with-gap" type="radio" id="{{forloop.counter}}1" name="{{forloop.counter}}" value="{{forloop.counter}}-{{question.option1}}" />
+        <label for="{{forloop.counter}}1">{{ question.option1}}</label><br>
+
+        <input class="with-gap" type="radio" id="{{forloop.counter}}2" name="{{forloop.counter}}" value="{{forloop.counter}}-{{question.option2}}" />
+        <label for="{{forloop.counter}}2">{{ question.option2}}</label><br>
+
+        <input class="with-gap" type="radio" id="{{forloop.counter}}3" name="{{forloop.counter}}" value="{{forloop.counter}}-{{question.option3}}" />
+        <label for="{{forloop.counter}}3">{{ question.option3}}</label><br>
+
+        <input class="with-gap" type="radio" id="{{forloop.counter}}4" name="{{forloop.counter}}" value="{{forloop.counter}}-{{question.option4}}" />
+        <label for="{{forloop.counter}}4">{{ question.option4}}</label><br><br><br>
+    {% endfor %}
+    </ul>
+    <input style="margin-left:2%; font-size: 150%;" type="submit" value="Submit" />
+    </form>
+
+    
+    <script>
+
+        function validate(form)
+        {
+            var valid = [true,false,false,false,false,false,false,false,false,false,false];
+            for (var i = 1; i <= 10; i++) {
+                if(document.getElementById(i+'1').checked || document.getElementById(i+'2').checked || document.getElementById(i+'3').checked || document.getElementById(i+'4').checked)
+                {
+                    valid[i] = true;
+                }
+            }   
+            var eachvalid = true;
+            for (var i = 0; i < valid.length; i++) {
+                if(valid[i] == false)
+                {
+                    eachvalid = false;
+                    break;
+                }
+
+            }
+            if(eachvalid == false)
+            {
+                alert('Please select at least one option in every question. No negative markings :)');
+                return false;
+            }
+            else 
+            {
+                return confirm('Are you sure you want to submit the form?');
+            }
+        }
+    </script>
+</body>
+</html>

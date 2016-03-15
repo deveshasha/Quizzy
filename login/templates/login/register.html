@@ -1,0 +1,71 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>QuizUp</title>
+
+  <!-- CSS  -->
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+
+<style type="text/css">
+  
+  .myClass.p{
+
+  font-size: 150%;
+    color: black;
+  }
+</style>
+  
+<body style="background-image:url({% static 'images/4.jpg' %});background-size:100%;background-repeat:no-repeat;">
+  
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo">QuizUp</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/">Home</a></li>
+        <li><a class="dropdown-button" href="#" data-activates="dropdown1">Languages</a></li>
+          <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="#!">C</a></li>
+            <li><a href="#!">Java</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">Php</a></li>
+          </ul>
+        <li><a href="#">Contact Us</a></li>
+        
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Languages</a></li>
+        <li><a href="#">Contact Us</a></li>
+       
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+{% block content %}
+<div class="container">
+    <form method="post" action=".">{% csrf_token %}
+        <table class = "myClass" border="0" style="font-size:120%;">
+            {{ form.as_p }}
+        </table>
+        <a href="/register/success"><button class="btn waves-effect waves-light" type="submit" value="Register" />Register</button> 
+
+    </form>
+    <a href="/login/"><button class="btn waves-effect waves-light">Login</button>
+    </a>
+  </div>
+    <br>
+   
+
+
+</body> 
+{% endblock %}

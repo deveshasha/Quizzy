@@ -1,0 +1,70 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>QuizUp</title>
+  
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+
+<body>
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo">QuizUp</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/">Home</a></li>
+        <li><a href="/test/">Languages</a></li>
+          <!-- <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="#!">C</a></li>
+            <li><a href="#!">Java</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">Php</a></li>
+          </ul> -->
+        <li><a href="#">Contact Us</a></li>
+
+        <!-- {% if user %}
+        {% if user.is_authenticated %}
+        <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown2">Welcome {{user.username}}</a></li>
+          <ul id='dropdown2' class='dropdown-content'>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        {% else %}
+        <li><a href="/login">Register/Login</a></li>
+        {% endif %}
+        {% else %}
+        <a href="/login">Login</a>
+        {% endif %} -->
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Languages</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="/login/">Register/Login</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+ <div class="card-panel">
+      <span class="blue-text text-darken-2"><h5>Registration Successful !</h5></span>
+      <span class="blue-text text-darken-2"><h3>Welcome to QuizUp , {{user.username}} !</h3></span>
+      <br>
+      <a href="/login" style="color:#000099"><h4>Click here to Login !</h4></a>
+    </div>
+
+
+
+     <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'js/materialize.js' %}"></script>
+  <script src="{% static 'js/init.js' %}"></script>
+ 
+  </body>
+</html>
