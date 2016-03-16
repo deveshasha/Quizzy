@@ -27,7 +27,7 @@
           </ul>
         <li><a href="#">Contact Us</a></li>
         {% if user.is_authenticated %}
-        <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown2">Welcome {{user.username}}</a></li>
+        <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown2">Welcome {{user.username}} ▼ </a></li>
           <ul id='dropdown2' class='dropdown-content'>
             <li><a href="/logout">Logout</a></li>
           </ul>
@@ -46,7 +46,7 @@
     </div>
   </nav>
   <div class="card-panel">
-      <span class="blue-text text-darken-2">We provide tests for the following languages :</span>
+      <span class="blue-text text-darken-2"><h5 style="margin-left: 14%">We provide tests for the following languages :<h5></span>
     </div>
 <div class="container">
     <div class="section">

@@ -27,7 +27,7 @@
           </ul> -->
         <li><a href="#">Contact Us</a></li>
         {% if user.is_authenticated %}
-        <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown2">Welcome {{user.username}}</a></li>
+        <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown2">Welcome {{user.username}} ▼</a></li>
           <ul id='dropdown2' class='dropdown-content'>
             <li><a href="/logout">Logout</a></li>
           </ul>
