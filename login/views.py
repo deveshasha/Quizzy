@@ -31,8 +31,9 @@ def register(request):
     'login/register.html',
     variables,
     )
- 
 
+def register_success(request):
+    return render(request,'login/success.html') 
 
 @login_required
 def logout_page(request):
