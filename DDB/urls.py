@@ -32,8 +32,7 @@ urlpatterns = [
     url(r'^register/success/', login.views.register_success),
     url(r'^$', views.home),
     #url(r'^test/',include('polls.urls')),
-    url(r'^contact',contact),
-
+    url(r'^contact',polls.views.contact),
     url(r'^test/',include('polls.urls')),
 
 
