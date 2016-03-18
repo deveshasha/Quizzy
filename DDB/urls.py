@@ -19,6 +19,7 @@ from polls.views import *
 from login.views import *
 from . import views
 
+
 urlpatterns = [
     #url(r'^test/ctest/$',views.index),
     #url(r'^polls/', include('polls.urls')),
@@ -32,5 +33,6 @@ urlpatterns = [
     url(r'^test/',views.test),
     url(r'^ctest',index),
     url(r'^result',result),
+    url(r'^contact',contact),
 
 ]
