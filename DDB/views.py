@@ -7,9 +7,3 @@ class HomePage(generic.TemplateView):
 
 def home(request):
 	return render(request, 'base.html')
-	
-def test(request):
-	return render(request, 'test.html')
-
-def register_success(request):
-    return render(request,'login/success.html')

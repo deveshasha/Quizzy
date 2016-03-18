@@ -14,7 +14,7 @@
 </head>
 <body>
 		
-	<form style="margin-left: 10%" action="/result/" onsubmit="return validate(this);" method="POST">
+	<form style="margin-left: 10%" action="result/" onsubmit="return validate(this);" method="POST">
     {% csrf_token %}
     <ul>
     {% for question in latest_question_list %}
