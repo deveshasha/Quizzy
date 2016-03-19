@@ -13,7 +13,7 @@
 
     <script type="text/javascript">
         var tim;
-        var min = 2;
+        var min = 1;
         var sec = 0;
         var f = new Date();
         function f1() {
@@ -29,14 +29,18 @@
                 tim = setTimeout("f2()", 1000);
             }
             else {
-                if (parseInt(sec) == 0) {
+                if (parseInt(sec) == 0) 
+                {
+
                     min = parseInt(min) - 1;
-                    if (parseInt(min) == 0) {
+                    if (parseInt(min) == -1) 
+                    {
                         clearTimeout(tim);
                         
                     }
-                    else {
-                        sec = 60;
+                    else 
+                    {
+                        sec = 59;
                         document.getElementById("showtime").innerHTML = "Your Left Time  is :" + min + " Minutes ," + sec + " Seconds";
                         tim = setTimeout("f2()", 1000);
                     }
