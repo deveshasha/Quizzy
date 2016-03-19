@@ -15,7 +15,7 @@
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo">QuizUp</a>
+      <a id="logo-container" href="/" class="brand-logo">QuizUp</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="/">Home</a></li>
         <li><a href="/test/">Languages</a></li>
@@ -27,8 +27,8 @@
           </ul> -->
         <li><a href="/contact">Contact Us</a></li>
         {% if user.is_authenticated %}
-        <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown2">Welcome {{user.username}} ▼</a></li>
-          <ul id='dropdown2' class='dropdown-content'>
+        <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown1">Welcome {{user.username}} ▼</a></li>
+          <ul id='dropdown1' class='dropdown-content'>
             <li><a href="/logout">Logout</a></li>
           </ul>
         {% else %}
@@ -37,10 +37,18 @@
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Languages</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="/login/">Register/Login</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/test/">Languages</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+        {% if user.is_authenticated %}
+        <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown2">Welcome {{user.username}} ▼</a></li>
+          <ul id='dropdown2' class='dropdown-content'>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        {% else %}
+        <li><a href="/login">Register/Login</a></li>
+        {% endif %}
+
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
@@ -151,30 +159,30 @@
     <div class="parallax"><img src="{% static 'images/3.jpg' %}" alt="Unsplashed background img 3"></div>
   </div>
 
-<footer class="page-footer teal">
+<footer class="page-footer white">
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
-          <h5 class="white-text">Company Bio</h5>
-          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+          <h5 class="black-text">Company Bio</h5>
+          <p class="black-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
 
 
         </div>
         <div class="col l3 s12">
-          <h5 class="white-text">Test your Skills</h5>
+          <h5 class="black-text">Test your Skills</h5>
           <ul>
-            <li><a class="white-text" href="#!">C</a></li>
-            <li><a class="white-text" href="#!">Java</a></li>
-            <li><a class="white-text" href="#!">Php</a></li>
-            <li><a class="white-text" href="#!">More Languages coming soon..</a></li>
+            <li><a class="black-text" href="#!">C</a></li>
+            <li><a class="black-text" href="#!">Java</a></li>
+            <li><a class="black-text" href="#!">Php</a></li>
+            <li><a class="black-text" href="#!">More Languages coming soon..</a></li>
           </ul>
         </div>
         <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
+          <h5 class="black-text">Connect</h5>
           <ul>
-            <li><a class="white-text" href="#!">Home</a></li>
-            <li><a class="white-text" href="#!">About Us</a></li>
-            <li><a class="white-text" href="#!">Contact Us</a></li>
+            <li><a class="black-text" href="#!">Home</a></li>
+            <li><a class="black-text" href="#!">About Us</a></li>
+            <li><a class="black-text" href="#!">Contact Us</a></li>
             
           </ul>
         </div>
