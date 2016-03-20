@@ -13,19 +13,32 @@
 
     <script type="text/javascript">
         var tim;
-        var min = 1;
+        var min = 7;
         var sec = 0;
         var f = new Date();
+        var hours = f.getHours();
+        var minutes = f.getMinutes();
+        if (minutes<10) {
+            minutes = "0" + minutes;
+        };
+        if(min < 10) {
+            min = "0" + min;
+        };
         function f1() {
             f2();
-            document.getElementById("starttime").innerHTML = "Your started your Exam at " + f.getHours() + ":" + f.getMinutes();
+            document.getElementById("starttime").innerHTML = "You started your Exam at " + hours + ":" + minutes;
              
           
         }
         function f2() {
             if (parseInt(sec) > 0) {
                 sec = parseInt(sec) - 1;
-                document.getElementById("showtime").innerHTML = "Your Left Time  is :"+min+" Minutes ," + sec+" Seconds";
+                if(sec < 10)
+                {
+                    sec= "0" + sec;
+                }
+                
+                document.getElementById("showtime").innerHTML = "<h4>Time left :</h4>" + min + ":" + sec;
                 tim = setTimeout("f2()", 1000);
             }
             else {
@@ -33,26 +46,27 @@
                 {
 
                     min = parseInt(min) - 1;
+                    if(min == 0)
+                        min = "0" + min;
                     if (parseInt(min) == -1) 
                     {
                         clearTimeout(tim);
+                        alert('Oops,your time is up!!');
+                        document.getElementById("form").submit();
                         
                     }
                     else 
                     {
                         sec = 59;
-                        document.getElementById("showtime").innerHTML = "Your Left Time  is :" + min + " Minutes ," + sec + " Seconds";
+                        document.getElementById("showtime").innerHTML = "<h4>Time left :</h4>" + min + ":" + sec;
                         tim = setTimeout("f2()", 1000);
                     }
                 }
                
             }
         }
+        
         </script>
-
-
-
-
 
 </head>
 
@@ -96,14 +110,13 @@
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
-    <div id="starttime">
+    <div class="card-panel"><span class="blue-text text-darken-2" style="margin-left: 14%" id="starttime"><h4></h4></span>
     </div>
-    <div id="endtime">
-    </div>
-    <div id="showtime">
-    </div>
+    <div class="row">
+      <div class="col s6 offset-s9"><span class="flow-text" id="showtime" style="position:fixed;"></span></div>
+  </div>
 		
-	<form style="margin-left: 10%" action="result/" onsubmit="return validate(this);" method="POST">
+	<form style="margin-left: 10%" action="result/" onsubmit="return validate(this);" method="POST" id="form">
     {% csrf_token %}
     <ul>
     {% for question in latest_question_list %}
@@ -187,8 +200,11 @@
     </div>
     
   </footer>
-
-
+<script>
+window.onbeforeunload = function() {
+  alert('are you sure ?');
+};
+</script>
   
 
 
