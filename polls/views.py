@@ -27,8 +27,8 @@ def result(request):
     ch = [0]
     correct = 0
     for i in range(1,6):
+        s = request.POST.get(str(i))
         if s:
-            s = request.POST.get(str(i))
             question, choice = s.split('-')
             ch.append(choice)
             #print ch
@@ -36,15 +36,15 @@ def result(request):
             if jobjects.ans == ch[i]:
                 correct+=1
     for i in range(1,6):
+        s = request.POST.get(str(i+5))
         if s:
-            s = request.POST.get(str(i+5))
             question, choice = s.split('-')
             ch.append(choice)
             #print ch
             phpobjects = Phpquestion.objects.get(pk=i)
             if phpobjects.ans == ch[i+5]:
                 correct+=1
-    
+
     return HttpResponse(correct)
 
 
