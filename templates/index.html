@@ -18,9 +18,15 @@
         var f = new Date();
         var hours = f.getHours();
         var minutes = f.getMinutes();
-        if(hours > 12 )
-            hours = hours - 12;
-        if (minutes<10) {
+        var pm = 0;
+        if(hours >= 12)
+            pm = 1;
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        if(hours < 10){
+            hours = "0" + hours;
+        }
+        if (minutes < 10) {
             minutes = "0" + minutes;
         };
         if(min < 10) {
@@ -28,7 +34,10 @@
         };
         function f1() {
             f2();
-            document.getElementById("starttime").innerHTML = "You started your Exam at " + hours + ":" + minutes;
+            if(pm)
+                document.getElementById("starttime").innerHTML = "You started your Exam at " + hours + ":" + minutes + " PM";
+            else
+                document.getElementById("starttime").innerHTML = "You started your Exam at " + hours + ":" + minutes + " AM";
         }
         function f2() {
             if (parseInt(sec) > 0) {
