@@ -143,31 +143,7 @@
 
         function validate(form)
         {
-            var valid = [true,false,false,false,false,false,false,false,false,false,false];
-            for (var i = 1; i <= 10; i++) {
-                if(document.getElementById(i+'1').checked || document.getElementById(i+'2').checked || document.getElementById(i+'3').checked || document.getElementById(i+'4').checked)
-                {
-                    valid[i] = true;
-                }
-            }   
-            var eachvalid = true;
-            for (var i = 0; i < valid.length; i++) {
-                if(valid[i] == false)
-                {
-                    eachvalid = false;
-                    break;
-                }
-
-            }
-            if(eachvalid == false)
-            {
-                alert('Please select at least one option in every question. No negative markings :)');
-                return false;
-            }
-            else 
-            {
                 return confirm('Are you sure you want to submit the form?');
-            }
         }
     </script>
     <footer class="page-footer white">
