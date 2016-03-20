@@ -18,6 +18,8 @@
         var f = new Date();
         var hours = f.getHours();
         var minutes = f.getMinutes();
+        if(hours > 12 )
+            hours = hours - 12;
         if (minutes<10) {
             minutes = "0" + minutes;
         };
@@ -27,8 +29,6 @@
         function f1() {
             f2();
             document.getElementById("starttime").innerHTML = "You started your Exam at " + hours + ":" + minutes;
-             
-          
         }
         function f2() {
             if (parseInt(sec) > 0) {
@@ -183,15 +183,10 @@ window.onbeforeunload = function() {
 };
 </script>
   
-
-
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="{% static 'js/materialize.js' %}"></script>
   <script src="{% static 'js/init.js' %}"></script>
     
-
-
-
 </body>
 </html>
