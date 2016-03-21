@@ -2,51 +2,69 @@ from django.shortcuts import render
 from .models import Question,Phpquestion
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate, login,logout
-from itertools import chain
+#from itertools import chain
 from polls.forms import *
-
+import random
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.template import Context
+from django.core import serializers
 
-javalist = Question.objects.order_by('q_id')[:5]
-phplist = Phpquestion.objects.order_by('q_id')[:5]
 
 def test(request):
     return render(request, 'test.html')
 
-def index(request):
+def javaindex(request):
     if request.user.is_authenticated():
-        latest_question_list = chain(javalist,phplist)
-        return render(request,'index.html',{'latest_question_list': latest_question_list})
+        javapool = list(Question.objects.all())
+        random.shuffle(javapool)
+        jlist = javapool[:10]
+        request.session['jlist'] = [j.ans for j in jlist]
+        return render(request,'index.html',{'latest_question_list': jlist})
     else:
         return HttpResponse("Please login before continuing.")
 
-def result(request):
-    i = 1
-    ch = [0]
+def javaresult(request):
+    ch = []
     correct = 0
-    for i in range(1,6):
+    jlist = request.session['jlist'] 
+    for i in range(1,11):
         s = request.POST.get(str(i))
         if s:
             question, choice = s.split('-')
             ch.append(choice)
-            #print ch
-            jobjects = Question.objects.get(pk=i)
-            if jobjects.ans == ch[i]:
-                correct+=1
-    for i in range(1,6):
-        s = request.POST.get(str(i+5))
+        else:
+            ch.append(None)
+    for i in range(0,10):
+        if ch[i] == jlist[i]:
+            correct+=1
+    return HttpResponse(correct)
+
+def phpindex(request):
+    if request.user.is_authenticated():
+        phppool = list(Phpquestion.objects.all())
+        random.shuffle(phppool)
+        phplist = phppool[:10]
+        request.session['plist'] = [p.ans for p in phplist]
+        return render(request,'index.html',{'latest_question_list': phplist})
+    else:
+        return HttpResponse("Please login before continuing.")
+
+def phpresult(request):
+    ch = []
+    correct = 0
+    phplist = request.session['plist'] 
+    for i in range(1,11):
+        s = request.POST.get(str(i))
         if s:
             question, choice = s.split('-')
             ch.append(choice)
-            #print ch
-            phpobjects = Phpquestion.objects.get(pk=i)
-            if phpobjects.ans == ch[i+5]:
-                correct+=1
-
+        else:
+            ch.append(None)
+    for i in range(0,10):
+        if ch[i] == phplist[i]:
+            correct+=1
     return HttpResponse(correct)
-
 
 def contact(request):
     form_class = ContactForm
