@@ -96,13 +96,53 @@ def contact(request):
             email = EmailMessage(
                 "New contact form submission",
                 content,
-                "QuizUp" +'',
-                ['quizup@gmail.com'],
+                "Quizzy" +'',
+                ['quizzy2016@gmail.com'],
                 headers = {'Reply-To': contact_email }
             )
             email.send()
             return HttpResponseRedirect('contact')
 
     return render(request, 'polls/contact.html', {
+        'form': form_class,
+    })
+
+def submitq(request):
+    form_class = QuestionForm
+
+    # new logic!
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+
+        if form.is_valid():
+            contact_name = request.POST.get(
+                'contact_name'
+            , '')
+            contact_email = request.POST.get(
+                'contact_email'
+            , '')
+            form_content = request.POST.get('content', '')
+            
+
+            # Email the profile with the 
+            # contact information
+            template = get_template('polls/question1.txt')
+            context = {
+                'contact_name': contact_name,
+                'contact_email': contact_email,
+                'form_content': form_content,
+            }
+            content = template.render({'context':context})
+            email = EmailMessage(
+                "User has Entered",
+                content,
+                "" +'',
+                [''],
+                headers = {'': contact_email }
+            )
+            email.send()
+            return HttpResponseRedirect('/submitq')
+
+    return render(request, 'polls/question.html', {
         'form': form_class,
     })

@@ -4,18 +4,19 @@
   
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>QuizUp</title>
+  <title>Quizzy</title>
   {% load staticfiles %}
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href='https://fonts.googleapis.com/css?family=Amaranth:700italic' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="/" class="brand-logo">QuizUp</a>
+      <a id="logo-container" href="/" class="brand-logo" style="font-family: 'Amaranth', sans-serif;font-size:300%;"><i class="material-icons" style="float:left;">code</i>&nbspQuizzy</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="/">Home</a></li>
         <li><a href="/test/">Languages</a></li>
@@ -53,10 +54,10 @@
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
+
   <div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
       <div class="container">
-        <br><br>
         <h1 class="header center teal-text text-lighten-2">Practice, Analyze and Improve!</h1>
         <div class="row center">
           <h5 class="header col s12 light">A structured way to augment your Coding Aptitude.</h5>
