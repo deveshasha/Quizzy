@@ -34,6 +34,7 @@ urlpatterns = [
     #url(r'^test/',include('polls.urls')),
     url(r'^contact',polls.views.contact),
     url(r'^test/',include('polls.urls')),
+    url(r'submitq/$',polls.views.submitq),
 
 
 ]

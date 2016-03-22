@@ -4,18 +4,32 @@
   
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>QuizUp</title>
+  <title>Quizzy</title>
   {% load staticfiles %}
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+ <script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script>
+
+ <script type='text/javascript'>
+  function init_map(){
+    var myOptions = {
+        zoom:16,center:new google.maps.LatLng(19.106855532272863,72.83632124554451),
+        mapTypeId: google.maps.MapTypeId.ROADMAP};
+        map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
+        marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(19.106855532272863,72.83632124554451)});
+        infowindow = new google.maps.InfoWindow({content:'<strong>DJ Sanghvi</strong><br>Plot No.U-15, J.V.P.D. Scheme, Bhaktivedanta Swami Marg, Vile Parle West, Mumbai, Maharashtra 400056<br>'});
+        google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});
+        infowindow.open(map,marker);}
+        google.maps.event.addDomListener(window, 'load', init_map);
+  </script>
 </head>
 
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="/" class="brand-logo">QuizUp</a>
+      <a id="logo-container" href="/" class="brand-logo">Quizzy</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="/">Home</a></li>
         <li><a href="/test/">Languages</a></li>
@@ -53,27 +67,35 @@
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
-<body>
   <div class="container">
-  <div class="row">
-    <div class="col s6">
+  <div class="row center">
+    <div class="col s9 center">
       <h3>Contact Us</h3>
       <form role="form" action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit</button>
     </form>
-  </div>
-    <div class="col s6">
-      <h3>Submit a Question!</h3>
-      <form role="form" action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
+    <div class="col s11">
+      <h4>Wish to submit a Question?&nbsp<a href="/submitq" class="black-text">Click Here!</a></h4>
   </div>
   </div>
 </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col s9">
+  <div style='overflow:hidden;height:380px;width:650px;'>
+  <div id='gmap_canvas' style='height:380px;width:650px;'></div>
+  <style>#gmap_canvas img{max-width:none!important;background:none!important}</style></div>
+  </div>
+  <div class="col s3">
+    <h4><em>Address:</em></h4>
+    <p>Plot No.U-15, J.V.P.D. Scheme, Bhaktivedanta Swami Marg, Vile Parle West, Mumbai, Maharashtra 400056</p>
+  </div>
+    </div>
+  </div>
 
 <div class="container">
       <div class="row">
@@ -115,6 +137,23 @@
         </div>
 
       </div>
+</div>
+
+<div class="row">
+  <div class="col s12 m8 offset-m2 l6 offset-l3">
+    <div class="row valign-wrapper">
+      <div class="col s6">
+  <img src="{% static 'images/nikhil.jpg' %}" class="circle responsive-img">
+
+
+           </div>
+           <div class="col s6">
+  <img src="{% static 'images/devesh.jpg' %}" class="circle responsive-img">
+           </div>
+
+         </div>
+</div>
+
 </div>
 <footer class="page-footer white">
     <div class="container">
