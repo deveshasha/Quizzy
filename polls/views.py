@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Question,Phpquestion
+from .models import Question,Phpquestion,Userprof
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate, login,logout
 #from itertools import chain
@@ -16,9 +16,12 @@ def test(request):
 
 def javaindex(request):
     if request.user.is_authenticated():
+        # userlist = Userprof.objects.all()
+        # for u in userlist:
+        #     print u.username
         javapool = list(Question.objects.all())
         random.shuffle(javapool)
-        jlist = javapool[:10]
+        jlist = javapool[:15]
         request.session['jlist'] = [j.ans for j in jlist]
         return render(request,'index.html',{'latest_question_list': jlist})
     else:
