@@ -32,11 +32,14 @@ class Phpquestion(models.Model):
         db_table = 'phpQuestion'
     def __unicode__(self):
         return self.q_text
-# class Userprof(models.Model):
-#     username = models.TextField(blank=True, null=True)
-#     subject = models.TextField(blank=True, null=True)
-#     score = models.IntegerField(blank=True, null=True)
 
-#     class Meta:
-#         app_label = 'polls'
-#         db_table = 'userprof'
+class Userprof(models.Model):
+    username = models.TextField(blank=True, null=True)
+    subject = models.TextField(blank=True, null=True)
+    score = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        app_label = 'polls'
+        db_table = 'Userprof'
+    def __unicode__(self):
+        return self.username
