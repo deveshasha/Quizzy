@@ -48,7 +48,7 @@ def phpindex(request):
         phppool = list(Phpquestion.objects.all())
         random.shuffle(phppool)
         phplist = phppool[:10]
-        request.session['plist'] = [p.ans for p in phplist]
+        request.session['phplist'] = [p.q_id for p in phplist]
         return render(request,'index.html',{'latest_question_list': phplist})
     else:
         return HttpResponse("Please login before continuing.")
@@ -56,7 +56,15 @@ def phpindex(request):
 def phpresult(request):
     ch = []
     correct = 0
-    phplist = request.session['plist'] 
+    # phplist = Phpquestion.objects.filter(q_id__in=request.session['phplist'])
+    idlist = request.session['phplist']
+    phplist = []
+    for i in idlist:
+        phplist.append(Phpquestion.objects.get(pk=i))
+    answers = []
+    for p in phplist:
+        answers.append(p.ans)
+
     for i in range(1,11):
         s = request.POST.get(str(i))
         if s:
@@ -64,10 +72,12 @@ def phpresult(request):
             ch.append(choice)
         else:
             ch.append(None)
+    
     for i in range(0,10):
-        if ch[i] == phplist[i]:
+        if ch[i] == answers[i]:
             correct+=1
-    return HttpResponse(correct)
+    lisst = zip(phplist,ch)
+    return render(request,'result.html',{'qlist':lisst,'score':correct})
 
 def contact(request):
     form_class = ContactForm
