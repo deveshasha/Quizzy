@@ -4,7 +4,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate, login,logout
 #from itertools import chain
 from polls.forms import *
-import random
+import random,json
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.template import Context
@@ -16,13 +16,10 @@ def test(request):
 
 def javaindex(request):
     if request.user.is_authenticated():
-        # userlist = Userprof.objects.all()
-        # for u in userlist:
-        #     print u.username
         javapool = list(Question.objects.all())
         random.shuffle(javapool)
-        jlist = javapool[:15]
-        request.session['jlist'] = [j.ans for j in jlist]
+        jlist = javapool[:10]
+        request.session['jlist'] = [j.q_id for j in jlist]
         return render(request,'index.html',{'latest_question_list': jlist})
     else:
         return HttpResponse("Please login before continuing.")
@@ -30,7 +27,14 @@ def javaindex(request):
 def javaresult(request):
     ch = []
     correct = 0
-    jlist = request.session['jlist'] 
+    idlist = request.session['jlist']
+    jlist = []
+    for i in idlist:
+        jlist.append(Question.objects.get(pk=i))
+    answers = []
+    for j in jlist:
+        answers.append(j.ans)
+
     for i in range(1,11):
         s = request.POST.get(str(i))
         if s:
@@ -38,10 +42,16 @@ def javaresult(request):
             ch.append(choice)
         else:
             ch.append(None)
+
     for i in range(0,10):
-        if ch[i] == jlist[i]:
+        if ch[i] == answers[i]:
             correct+=1
-    return HttpResponse(correct)
+
+    lisst = zip(jlist,ch)
+
+    up = Userprof.objects.create(username=request.user.username,subject='java',score=correct)
+
+    return render(request,'result.html',{'qlist':lisst,'score':correct})
 
 def phpindex(request):
     if request.user.is_authenticated():
@@ -56,7 +66,6 @@ def phpindex(request):
 def phpresult(request):
     ch = []
     correct = 0
-    # phplist = Phpquestion.objects.filter(q_id__in=request.session['phplist'])
     idlist = request.session['phplist']
     phplist = []
     for i in idlist:
@@ -76,8 +85,42 @@ def phpresult(request):
     for i in range(0,10):
         if ch[i] == answers[i]:
             correct+=1
+
     lisst = zip(phplist,ch)
+
+    up = Userprof.objects.create(username=request.user.username,subject='php',score=correct)
+
     return render(request,'result.html',{'qlist':lisst,'score':correct})
+
+def show_javachart(request):
+    userss = Userprof.objects.filter(username__exact=request.user.username,subject__exact='java')
+    c=1
+    array = [['TestNumber', 'Java'],[0,0]]
+    tickcount = [0]
+    for u in userss:
+        temp=[]
+        temp.append(int(c))
+        temp.append(int(u.score))
+        array.append(temp)
+        tickcount.append(c)
+        c+=1
+
+    return render(request,'chart.html', {'array': json.dumps(array),'tickcount':json.dumps(tickcount)})
+
+def show_phpchart(request):
+    userss = Userprof.objects.filter(username__exact=request.user.username,subject__exact='php')
+    c=1
+    array = [['TestNumber', 'PHP'],[0,0]]
+    tickcount = [0]
+    for u in userss:
+        temp=[]
+        temp.append(int(c))
+        temp.append(int(u.score))
+        array.append(temp)
+        tickcount.append(c)
+        c+=1
+
+    return render(request,'chart.html', {'array': json.dumps(array),'tickcount':json.dumps(tickcount)})
 
 def contact(request):
     form_class = ContactForm
