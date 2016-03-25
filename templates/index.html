@@ -147,16 +147,16 @@
         <label for="{{forloop.counter}}4">{{ question.option4}}</label><br><br><br>
         <div class="divider"></div>
     {% endfor %}
-
+    
     </ul>
-    <button data-target="modal1" class="btn modal-trigger">Submit</button>
+    <button data-target="modal1" class="btn modal-trigger" type="submit">Submit</button>
     <div id="modal1" class="modal">
     <div class="modal-content">
       <h5>Are you sure you want to submit the test?</h5>
     </div>
     <div class="modal-footer">
       <a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
-      <a href="result/" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+      <input type="submit" class="modal-action modal-close waves-effect waves-green btn-flat" value="Yes"></input>
     </div>
   </div>
     </form>
