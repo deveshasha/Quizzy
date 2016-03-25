@@ -128,7 +128,7 @@
       <div class="col s6 offset-s9"><span class="flow-text" id="showtime" style="position:fixed;"></span></div>
   </div>
 		
-	<form style="margin-left: 10%" action="result/" onsubmit="return validate(this);" method="POST" id="form">
+	<form style="margin-left: 10%" action="result/" method="POST" id="form">
     {% csrf_token %}
     <ul>
     {% for question in latest_question_list %}
@@ -149,17 +149,17 @@
     {% endfor %}
 
     </ul>
-    <input style="margin-left:2%; font-size: 150%;" type="submit" value="Submit" />
+    <button data-target="modal1" class="btn modal-trigger">Submit</button>
+    <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h5>Are you sure you want to submit the test?</h5>
+    </div>
+    <div class="modal-footer">
+      <a class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+      <a href="result/" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+    </div>
+  </div>
     </form>
-
-    
-    <script>
-
-        function validate(form)
-        {
-                return confirm('Are you sure you want to submit the form?');
-        }
-    </script>
     <footer class="page-footer white">
     <div class="container">
       <div class="row">
@@ -189,18 +189,19 @@
         </div>
       </div>
     </div>
-    
   </footer>
-<script>
-window.onbeforeunload = function() {
-  alert('are you sure ?');
-};
-</script>
   
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="{% static 'js/materialize.js' %}"></script>
   <script src="{% static 'js/init.js' %}"></script>
-    
+  <script>
+  
+$(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+  
+</script>
 </body>
 </html>
