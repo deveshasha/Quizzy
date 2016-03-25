@@ -36,5 +36,8 @@ urlpatterns = [
     url(r'^test/',include('polls.urls')),
     url(r'submitq/$',polls.views.submitq),
     url(r'',include('forums.urls')),
+    url(r'^submitq/$',polls.views.submitq),
+    url(r'^javachart/',polls.views.show_javachart),
+    url(r'^phpchart/',polls.views.show_phpchart),
 
 ]
