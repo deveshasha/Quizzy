@@ -26,6 +26,7 @@
             <li class="divider"></li>
             <li><a href="#!">Php</a></li>
           </ul> -->
+          <li><a href="/forums">Forum</a></li>
         <li><a href="/contact">Contact Us</a></li>
         {% if user.is_authenticated %}
         <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown1">Welcome {{user.username}} ▼</a></li>
@@ -40,6 +41,7 @@
       <ul id="nav-mobile" class="side-nav">
         <li><a href="/">Home</a></li>
         <li><a href="/test/">Languages</a></li>
+        <li><a href="/forums">Forum</a></li>
         <li><a href="/contact">Contact Us</a></li>
         {% if user.is_authenticated %}
         <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown2">Welcome {{user.username}} ▼</a></li>
@@ -69,43 +71,48 @@
   <div style="margin-left: 10%">
     <h4> Your score : {{score}} / 10</h4>
     <h5>Answers (shown in green)</h5>
-    {% for q , ans in qlist %}
 
-        <ul>{{forloop.counter}}. {{ q.q_text }}
+    <div class="row">
+      
+    {% for q , ans in qlist %}
+        <div class="divider"></div>
+        <div class="section">
+        <ul>{{forloop.counter}}. <b><em>{{ q.q_text }}</em></b>
         {% if q.option1 == q.ans %}
-          <li><span style="color: green;"><strong>{{ q.option1 }}</strong></span></li>
+          <li><span style="color: green;"><strong>a.{{ q.option1 }}</strong></span></li>
         {% else %}
-          <li><span>{{ q.option1 }}</span></li>
+          <li><span>a.{{ q.option1 }}</span></li>
         {% endif %}
 
         {% if q.option2 == q.ans %}
-          <li><span style="color: green;"><strong>{{ q.option2 }}</strong></span></li>
+          <li><span style="color: green;"><strong>b.{{ q.option2 }}</strong></span></li>
         {% else %}
-          <li><span>{{ q.option2 }}</span></li>
+          <li><span>b.{{ q.option2 }}</span></li>
         {% endif %}
 
         {% if q.option3 == q.ans %}
-          <li><span style="color: green;"><strong>{{ q.option3 }}</strong></span></li>
+          <li><span style="color: green;"><strong>c.{{ q.option3 }}</strong></span></li>
         {% else %}
-          <li><span>{{ q.option3 }}</span></li>
+          <li><span>c.{{ q.option3 }}</span></li>
         {% endif %}
 
         {% if q.option4 == q.ans %}
-          <li><span style="color: green;"><strong>{{ q.option4 }}</strong></span></li>
+          <li><span style="color: green;"><strong>d.{{ q.option4 }}</strong></span></li>
         {% else %}
-          <li><span>{{ q.option4 }}</span></li>
+          <li><span>d.{{ q.option4 }}</span></li>
         {% endif %}
 
         {% if ans %}
-        <li><span>You answered: {{ ans }}</span></li>
+        <li><span><blockquote>You answered: {{ ans }}</blockquote></span></li>
         {% else %}
-        <li><span>You did not answer this question.</span></li>
+        <li><blockquote>You did not answer this question.</blockquote></li>
         {% endif %}
-
+        </div>
       </ul>
 
     {% endfor %}
   </div>
+</div>
 <footer class="page-footer white">
     <div class="container">
       <div class="row">

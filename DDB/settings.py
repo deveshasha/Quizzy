@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'polls.apps.PollsConfig',
     'login',
+    'forums',
+    'markdown_deux',
 ]
 
 MIDDLEWARE_CLASSES = [

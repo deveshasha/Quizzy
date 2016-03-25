@@ -35,6 +35,6 @@ urlpatterns = [
     url(r'^contact',polls.views.contact),
     url(r'^test/',include('polls.urls')),
     url(r'submitq/$',polls.views.submitq),
-
+    url(r'',include('forums.urls')),
 
 ]

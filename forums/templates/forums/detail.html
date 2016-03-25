@@ -1,3 +1,5 @@
+{% load markdown_deux_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,26 +12,13 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
- <script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script>
-
- <script type='text/javascript'>
-  function init_map(){
-    var myOptions = {
-        zoom:16,center:new google.maps.LatLng(19.106855532272863,72.83632124554451),
-        mapTypeId: google.maps.MapTypeId.ROADMAP};
-        map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
-        marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(19.106855532272863,72.83632124554451)});
-        infowindow = new google.maps.InfoWindow({content:'<strong>DJ Sanghvi</strong><br>Plot No.U-15, J.V.P.D. Scheme, Bhaktivedanta Swami Marg, Vile Parle West, Mumbai, Maharashtra 400056<br>'});
-        google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});
-        infowindow.open(map,marker);}
-        google.maps.event.addDomListener(window, 'load', init_map);
-  </script>
+  <link href='https://fonts.googleapis.com/css?family=Amaranth:700italic' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="/" class="brand-logo">Quizzy</a>
+      <a id="logo-container" href="/" class="brand-logo" style="font-family: 'Amaranth', sans-serif;font-size:300%;"><i class="material-icons" style="float:left;">code</i>&nbspQuizzy</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="/">Home</a></li>
         <li><a href="/test/">Languages</a></li>
@@ -70,62 +59,47 @@
     </div>
   </nav>
   <div class="container">
-  <div class="row center">
-    <div class="col s9 center">
-      <h3>Contact Us</h3>
-      <form role="form" action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-    <div class="col s11">
-      <h4>Wish to submit a Question?&nbsp<a href="/submitq" class="black-text">Click Here!</a></h4>
-  </div>
-  </div>
-</div>
-</div>
-
-<div class="container">
   <div class="row">
-    <div class="col s9">
-  <div style='overflow:hidden;height:380px;width:650px;'>
-  <div id='gmap_canvas' style='height:380px;width:650px;'></div>
-  <style>#gmap_canvas img{max-width:none!important;background:none!important}</style></div>
+  <div class="col-s12">
+    <article>
+      <h4>{{post.question}}</h4>
+      <p><b>Written by <span style="color:blue"><em>{{post.user}}</em></span> on {{post.published_date}}</b></p>
+      <div class="divider"></div>
+      <p>{{post.text|markdown}}</p>
+    
+    </article>
   </div>
-  <div class="col s3">
-    <h4><em><i class="material-icons">location_on</i>&nbspAddress:</em></h4>
-    <p>Plot No.U-15, J.V.P.D. Scheme, Bhaktivedanta Swami Marg, Vile Parle West, Mumbai, Maharashtra 400056</p>
-  </div>
-    </div>
-  </div>
-
-<div class="container">
-      <div class="row">
-        <div class="col s12 center">
-          <div class="icon-block">
-          <h2><i class="material-icons">group</i></h2>
-          <h4>About Us</h4>
-        </div>
-      </div>
-    </div>
+  <a class="btn waves-effect waves-light" href="/forums/">
+    <i class="material-icons right">fast_rewind</i>Click here to go back!
+  </a>
 </div>
-
 <div class="row">
-  <div class="col s12 m8 offset-m2 l6 offset-l3">
-    <div class="row valign-wrapper">
-      <div class="col s6">
-  <img src="{% static 'images/nikhil.jpg' %}" class="circle responsive-img">
+  <div id="disqus_thread"></div>
+<script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
 
+s.src = '//quizzy13.disqus.com/embed.js';
 
-           </div>
-           <div class="col s6">
-  <img src="{% static 'images/devesh.jpg' %}" class="circle responsive-img">
-           </div>
-
-         </div>
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
 </div>
 
-</div>
+
 <footer class="page-footer white">
     <div class="container">
       <div class="row">
@@ -162,8 +136,6 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="{% static 'js/materialize.js' %}"></script>
   <script src="{% static 'js/init.js' %}"></script>
- 
+  <script id="dsq-count-scr" src="//quizzy13.disqus.com/count.js" async></script>
   </body>
 </html>
-
-
