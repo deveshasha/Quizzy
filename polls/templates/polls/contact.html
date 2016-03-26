@@ -44,6 +44,7 @@
         {% if user.is_authenticated %}
         <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown1">Welcome {{user.username}} ▼</a></li>
           <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="/performance">Your Performance</a></li>
             <li><a href="/logout">Logout</a></li>
           </ul>
         {% else %}
@@ -59,6 +60,7 @@
         {% if user.is_authenticated %}
         <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown2">Welcome {{user.username}} ▼</a></li>
           <ul id='dropdown2' class='dropdown-content'>
+            <li><a href="/performance">Your Performance</a></li>
             <li><a href="/logout">Logout</a></li>
           </ul>
         {% else %}

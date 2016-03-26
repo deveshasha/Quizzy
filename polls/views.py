@@ -92,6 +92,11 @@ def phpresult(request):
 
     return render(request,'result.html',{'qlist':lisst,'score':correct})
 
+def show_perfindex(request):
+    userj = Userprof.objects.filter(username__exact=request.user.username,subject__exact='java')
+    userp = Userprof.objects.filter(username__exact=request.user.username,subject__exact='php')
+    return render(request,'performance.html',{'userj':userj,'userp':userp})
+    
 def show_javachart(request):
     userss = Userprof.objects.filter(username__exact=request.user.username,subject__exact='java')
     c=1
