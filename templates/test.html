@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
+
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
   <title>Quizzy</title>
   {% load staticfiles %}
-
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href='https://fonts.googleapis.com/css?family=Amaranth:700italic' rel='stylesheet' type='text/css'>
   <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="/" class="brand-logo">Quizzy</a>
+      <a id="logo-container" href="/" class="brand-logo" style="font-family: 'Amaranth', sans-serif;font-size:300%;"><i class="material-icons" style="float:left;">code</i>&nbspQuizzy</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="/">Home</a></li>
         <li><a href="/test/">Languages</a></li>
@@ -52,7 +52,7 @@
         {% else %}
         <li><a href="/login">Register/Login</a></li>
         {% endif %}
-        
+
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
@@ -63,28 +63,12 @@
 <div class="container">
     <div class="section">
   <div class="row">
-        <div class="col s6 m4">
-          <div class="card">
-            <div class="card-image">
-              <img src="{% static 'images/C.jpg' %}" class="responsive-img">
-              
-            </div>
-            <div class="card-content">
-              <p>C is one of the most widely used programming languages of all time, and C compilers are available for the majority of available computer architectures and operating systems.</p>
-            </div>
-            <div class="card-action">
-              <a href="" style="color:#000099" onclick="return is_user()">Take A Test</a>
-            </div>
-          </div>
-        </div>
-      
 
-      
         <div class="col s6 m4">
           <div class="card">
             <div class="card-image">
               <img src="{% static 'images/java.jpg' %}" class="responsive-img">
-             
+
             </div>
             <div class="card-content">
               <p>Java remains a developer favourite because it's secure,robust and relatively simple.More than 95% of enterprise desktops run Java.After C, Java ranks No. 2 in popularity.</p>
@@ -94,14 +78,14 @@
             </div>
           </div>
         </div>
-     
 
-     
+
+
         <div class="col s6 m4">
           <div class="card">
             <div class="card-image">
               <img src="{% static 'images/php.png' %}" class="responsive-img">
-             
+
             </div>
             <div class="card-content">
               <p>PHP was originally designed to create dynamic and more interactive web pages. It is the most widely-used, open-source and general-purpose scripting language.</p>
@@ -111,6 +95,37 @@
             </div>
           </div>
         </div>
+
+        <div class="col s6 m4">
+          <div class="card">
+            <div class="card-image">
+              <img src="{% static 'images/python.png' %}" class="responsive-img">
+
+            </div>
+            <div class="card-content">
+              <p>Python is an easy to learn, powerful programming language. It has efficient high-level data structures and a simple but effective approach to object-oriented programming.</p>
+            </div>
+            <div class="card-action">
+              <span>Coming Soon</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s6 m4">
+          <div class="card">
+            <div class="card-image">
+              <img src="{% static 'images/C.jpg' %}" class="responsive-img">
+
+            </div>
+            <div class="card-content">
+              <p>C is one of the most widely used programming languages of all time, and C compilers are available for the majority of available computer architectures and operating systems.</p>
+            </div>
+            <div class="card-action">
+              <span>Coming Soon</span>
+            </div>
+          </div>
+        </div>
+
       </div>
 </div>
 </div>
@@ -139,19 +154,19 @@
             <li><a class="black-text" href="#!">Home</a></li>
             <li><a class="black-text" href="#!">About Us</a></li>
             <li><a class="black-text" href="#!">Contact Us</a></li>
-            
+
           </ul>
         </div>
       </div>
     </div>
-    
+
   </footer>
-  
-    
-  
 
 
-  
+
+
+
+
 
 
   <!--  Scripts-->
@@ -167,9 +182,9 @@
       alert('Please Login or Register before continuing.');
       return false;
     {% endif %}
-  }   
+  }
     </script>
 
- 
+
   </body>
 </html>

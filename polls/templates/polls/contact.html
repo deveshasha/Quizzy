@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
+
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
   <title>Quizzy</title>
@@ -15,7 +15,7 @@
  <script type='text/javascript'>
   function init_map(){
     var myOptions = {
-        zoom:16,center:new google.maps.LatLng(19.106855532272863,72.83632124554451),
+        zoom:15,center:new google.maps.LatLng(19.106855532272863,72.83632124554451),
         mapTypeId: google.maps.MapTypeId.ROADMAP};
         map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
         marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(19.106855532272863,72.83632124554451)});
@@ -152,19 +152,19 @@
             <li><a class="black-text" href="#!">Home</a></li>
             <li><a class="black-text" href="#!">About Us</a></li>
             <li><a class="black-text" href="#!">Contact Us</a></li>
-            
+
           </ul>
         </div>
       </div>
     </div>
-    
+
   </footer>
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="{% static 'js/materialize.js' %}"></script>
   <script src="{% static 'js/init.js' %}"></script>
- 
+
   </body>
 </html>
 
