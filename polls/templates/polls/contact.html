@@ -72,13 +72,19 @@
     </div>
   </nav>
   <div class="container">
-  <div class="row center">
+  <div class="row">
     <div class="col s9 center">
       <h3>Contact Us</h3>
       <form role="form" action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Submit</button>
+        <button data-target="modal1" class="btn modal-trigger" type="submit">Submit</button>
+    <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h5>Your request has been received.</h5>
+    </div>
+    
+  </div>
     </form>
     <div class="col s11">
       <h4>Wish to submit a Question?&nbsp<a href="/submitq" class="black-text">Click Here!</a></h4>
@@ -164,7 +170,14 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="{% static 'js/materialize.js' %}"></script>
   <script src="{% static 'js/init.js' %}"></script>
-
+<script>
+  
+$(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+  
+</script>
   </body>
 </html>
 

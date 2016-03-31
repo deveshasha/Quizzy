@@ -67,8 +67,13 @@
               <div class="divider"></div>
               <div class="section">
                 <p><b>Published: {{ post.published_date }}</b></p>
-                <h4><a href="/forums/{{ post.id }}/{{post.slug}}"><span style="color:#004d40">{{ post.question }}</span></a></h4>
+                <h4><span style="color:#004d40">{{ post.question }}</span></h4>
                 <p>{{ post.synopsis|linebreaks }}</p>
+                <div class="left-align">
+                <a class="btn waves-effect default teal darken-4" href="/forums/{{ post.id }}/{{post.slug}}" name="action">Read More
+    <i class="material-icons right">send</i>
+  </a>
+</div>
             </div>
             <div class="divider"></div>
           </div>

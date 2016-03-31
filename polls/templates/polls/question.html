@@ -67,7 +67,13 @@
       <form role="form" action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Submit</button>
+        <button data-target="modal1" class="btn modal-trigger" type="submit">Submit</button>
+    <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h5>Your request has been received.</h5>
+    </div>
+    
+  </div>
     </form>
   </div>
 </div>
@@ -114,6 +120,13 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="{% static 'js/materialize.js' %}"></script>
   <script src="{% static 'js/init.js' %}"></script>
- 
+  <script>
+  
+$(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+  
+</script>
   </body>
 </html>

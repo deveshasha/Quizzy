@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Question,Phpquestion,Userprof
+from .models import Question,Phpquestion,Userprof,ContactDetails,UserQuestions
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate, login,logout
 #from itertools import chain
@@ -9,7 +9,6 @@ from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.template import Context
 from django.core import serializers
-
 
 def test(request):
     return render(request, 'test.html')
@@ -143,7 +142,8 @@ def contact(request):
             , '')
             form_content = request.POST.get('content', '')
             
-
+            FormObj = ContactDetails(username=contact_name,email=contact_email,content=form_content)
+            FormObj.save()
             # Email the profile with the 
             # contact information
             template = get_template('polls/contact_template.txt')
@@ -183,7 +183,8 @@ def submitq(request):
                 'contact_email'
             , '')
             form_content = request.POST.get('content', '')
-            
+            FormObj = UserQuestions(username=contact_name,email=contact_email,question=form_content)
+            FormObj.save()
 
             # Email the profile with the 
             # contact information

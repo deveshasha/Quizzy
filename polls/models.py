@@ -43,3 +43,25 @@ class Userprof(models.Model):
         db_table = 'Userprof'
     def __unicode__(self):
         return self.username
+
+class ContactDetails(models.Model):
+    username = models.TextField(blank=True, null=True)
+    email = models.TextField(blank=True, null=True)
+    content = models.TextField(blank=True, null=True)
+
+    class Meta:
+        app_label = 'polls'
+        db_table = 'ContactDetails'
+    def __unicode__(self):
+        return self.username
+
+class UserQuestions(models.Model):
+    username = models.TextField(blank=True, null=True)
+    email = models.TextField(blank=True, null=True)
+    question = models.TextField(blank=True, null=True)
+
+    class Meta:
+        app_label = 'polls'
+        db_table = 'UserQuestions'
+    def __unicode__(self):
+        return self.username
