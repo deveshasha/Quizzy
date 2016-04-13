@@ -67,13 +67,7 @@
       <form role="form" action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button data-target="modal1" class="btn modal-trigger" type="submit">Submit</button>
-    <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h5>Your request has been received.</h5>
-    </div>
-    
-  </div>
+        <button type="submit">Submit</button>
     </form>
   </div>
 </div>
