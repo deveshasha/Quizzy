@@ -9,5 +9,4 @@ urlpatterns = [
 	url(r'jtest/result/$',views.javaresult),
 	url(r'phptest/$', views.phpindex),
 	url(r'phptest/result/$',views.phpresult),
-	url(r'mtest/$',views.mixindex),
 ]

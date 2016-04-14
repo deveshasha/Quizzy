@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Question,Phpquestion,Userprof,ContactDetails,UserQuestions,Mixquestion
+from .models import Question,Phpquestion,Userprof,ContactDetails,UserQuestions
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate, login,logout
 #from itertools import chain
@@ -52,24 +52,24 @@ def javaresult(request):
 
     return render(request,'result.html',{'qlist':lisst,'score':correct})
 
-def mixindex(request):
-    # if request.user.is_authenticated():
-    #     pool = list(Phpquestion.objects.all())
-    #     random.shuffle(pool)
-    #     mlist = pool[:5]
-    #     pool = list(Question.objects.all())
-    #     random.shuffle(pool)
-    #     nlist = pool[:5]
-    #     mlist.append(nlist)
-    #     return render(request,'index.html',{'latest_question_list':mlist})
-    if request.user.is_authenticated():
-        phppool = list(Mixquestion.objects.all())
-        random.shuffle(phppool)
-        phplist = phppool[:10]
-        request.session['phplist'] = [p.q_id for p in phplist]
-        return render(request,'index.html',{'latest_question_list': phplist})
-    else:
-        return HttpResponse("Please login before continuing.")
+# def mixindex(request):
+#     # if request.user.is_authenticated():
+#     #     pool = list(Phpquestion.objects.all())
+#     #     random.shuffle(pool)
+#     #     mlist = pool[:5]
+#     #     pool = list(Question.objects.all())
+#     #     random.shuffle(pool)
+#     #     nlist = pool[:5]
+#     #     mlist.append(nlist)
+#     #     return render(request,'index.html',{'latest_question_list':mlist})
+#     if request.user.is_authenticated():
+#         phppool = list(Mixquestion.objects.all())
+#         random.shuffle(phppool)
+#         phplist = phppool[:10]
+#         request.session['phplist'] = [p.q_id for p in phplist]
+#         return render(request,'index.html',{'latest_question_list': phplist})
+#     else:
+#         return HttpResponse("Please login before continuing.")
 
 
 
