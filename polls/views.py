@@ -9,6 +9,7 @@ from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.template import Context
 from django.core import serializers
+from django.db.models import Max
 
 def test(request):
     return render(request, 'test.html')
@@ -231,7 +232,24 @@ def submitq(request):
     })
 
 
-def leaderboard(request):
-    p = Userprof.objects.filter(subject__exact='java').order_by('-score')
-    
-    return render(request, 'polls/leaderboard.html',{'p':p})
+def javaleaderboard(request):
+    # p = Userprof.objects.filter(subject__exact='java').order_by('-score')
+    p = Userprof.objects.values('username','subject').annotate(score=Max('score')).order_by('-score')
+    jp = p.filter(subject__exact='java')
+    # pp = p.filter(subject__exact='php')
+    # print jp
+    # print pp
+    # print p
+    # p = Userprof.objects.annotate(Max('score'))
+    return render(request, 'polls/leaderboard.html',{'p':jp})
+
+def phpleaderboard(request):
+    # p = Userprof.objects.filter(subject__exact='java').order_by('-score')
+    p = Userprof.objects.values('username','subject').annotate(score=Max('score')).order_by('-score')
+    # jp = p.filter(subject__exact='java')
+    pp = p.filter(subject__exact='php')
+    # print jp
+    # print pp
+    # print p
+    # p = Userprof.objects.annotate(Max('score'))
+    return render(request, 'polls/leaderboard.html',{'p':pp})
