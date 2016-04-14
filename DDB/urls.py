@@ -40,4 +40,6 @@ urlpatterns = [
     url(r'^javachart/',polls.views.show_javachart),
     url(r'^phpchart/',polls.views.show_phpchart),
     url(r'^performance/',polls.views.show_perfindex),
+    url(r'^leaderboard/',polls.views.leaderboard),
+
 ]

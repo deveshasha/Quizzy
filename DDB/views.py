@@ -7,3 +7,4 @@ class HomePage(generic.TemplateView):
 
 def home(request):
 	return render(request, 'base.html')
+

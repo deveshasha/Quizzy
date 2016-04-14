@@ -229,3 +229,9 @@ def submitq(request):
     return render(request, 'polls/question.html', {
         'form': form_class,
     })
+
+
+def leaderboard(request):
+    p = Userprof.objects.filter(subject__exact='java').order_by('-score')
+    
+    return render(request, 'polls/leaderboard.html',{'p':p})
