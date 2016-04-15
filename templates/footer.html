@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>Quizzy</title>
+  {% load staticfiles %}
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href='https://fonts.googleapis.com/css?family=Amaranth:700italic' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="/" class="brand-logo" style="font-family: 'Amaranth', sans-serif;font-size:300%;"><i class="material-icons" style="float:left;">code</i>&nbspQuizzy</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/">Home</a></li>
+        <li><a href="/test/">Languages</a></li>
+          <!-- <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="#!">C</a></li>
+            <li><a href="#!">Java</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">Php</a></li>
+          </ul> -->
+          <li><a href="/forums">Forum</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+        {% if user.is_authenticated %}
+        <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown1">Welcome {{user.username}} ▼</a></li>
+          <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="/performance">Your Performance</a></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        {% else %}
+        <li><a href="/login">Register/Login</a></li>
+        {% endif %}
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/test/">Languages</a></li>
+        <li><a href="/forums">Forum</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+        {% if user.is_authenticated %}
+        <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown2">Welcome {{user.username}} ▼</a></li>
+          <ul id='dropdown2' class='dropdown-content'>
+            <li><a href="/performance">Your Performance</a></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        {% else %}
+        <li><a href="/login">Register/Login</a></li>
+        {% endif %}
+
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+ {% block body %}
+  {% endblock %}  
+<footer class="page-footer white">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="black-text">Company Bio</h5>
+          <p class="black-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="black-text">Test your Skills</h5>
+          <ul>
+            <li><a class="black-text" href="#!">C</a></li>
+            <li><a class="black-text" href="#!">Java</a></li>
+            <li><a class="black-text" href="#!">Php</a></li>
+            <li><a class="black-text" href="#!">More Languages coming soon..</a></li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="black-text">Connect</h5>
+          <ul>
+            <li><a class="black-text" href="#!">Home</a></li>
+            <li><a class="black-text" href="#!">About Us</a></li>
+            <li><a class="black-text" href="#!">Contact Us</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'js/materialize.js' %}"></script>
+  <script src="{% static 'js/init.js' %}"></script>
+  
+
+  </body>
+</html>

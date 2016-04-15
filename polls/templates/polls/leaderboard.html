@@ -1,62 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>Quizzy</title>
-  {% load staticfiles %}
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href='https://fonts.googleapis.com/css?family=Amaranth:700italic' rel='stylesheet' type='text/css'>
-  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
-</head>
-
-<body>
-  <nav class="white" role="navigation">
-    <div class="nav-wrapper container">
-      <a id="logo-container" href="/" class="brand-logo" style="font-family: 'Amaranth', sans-serif;font-size:300%;"><i class="material-icons" style="float:left;">code</i>&nbspQuizzy</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="/">Home</a></li>
-        <li><a href="/test/">Languages</a></li>
-        <li><a href="/forums">Forum</a></li>
-          <!-- <ul id='dropdown1' class='dropdown-content'>
-            <li><a href="#!">C</a></li>
-            <li><a href="#!">Java</a></li>
-            <li class="divider"></li>
-            <li><a href="#!">Php</a></li>
-          </ul> -->
-        <li><a href="/contact">Contact Us</a></li>
-        {% if user.is_authenticated %}
-        <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown1">Welcome {{user.username}} ▼</a></li>
-          <ul id='dropdown1' class='dropdown-content'>
-            <li><a href="/performance">Your Performance</a></li>
-            <li><a href="/logout">Logout</a></li>
-          </ul>
-        {% else %}
-        <li><a href="/login">Register/Login</a></li>
-        {% endif %}
-      </ul>
-
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="/test/">Languages</a></li>
-        <li><a href="/forums">Forum</a></li>
-        <li><a href="/contact">Contact Us</a></li>
-        {% if user.is_authenticated %}
-        <li><a class="dropdown-button" data-beloworigin="true" data-activates="dropdown2">Welcome {{user.username}} ▼</a></li>
-          <ul id='dropdown2' class='dropdown-content'>
-            <li><a href="/performance">Your Performance</a></li>
-            <li><a href="/logout">Logout</a></li>
-          </ul>
-        {% else %}
-        <li><a href="/login">Register/Login</a></li>
-        {% endif %}
-
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-  </nav><br>
+{% extends "footer.html" %}
+{% load staticfiles %}
+{% block body %}
+  <br>
 <div style="margin-left:20%" >
 Click Java or PHP...<br><br>
   <a href="/javaleaderboard">Java</a><br><br>
@@ -84,5 +29,4 @@ Click Java or PHP...<br><br>
       </table>
 
   </div>
-</body>
-</html>
+{% endblock %}
