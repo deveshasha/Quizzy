@@ -1,15 +1,15 @@
+import random,json
 from django.shortcuts import render
-from .models import Question,Phpquestion,Userprof,ContactDetails,UserQuestions
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate, login,logout
-#from itertools import chain
-from polls.forms import *
-import random,json
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.template import Context
 from django.core import serializers
 from django.db.models import Max
+from .models import Question,Phpquestion,Userprof,ContactDetails,UserQuestions
+from polls.forms import *
+
 
 def test(request):
     return render(request, 'test.html')
@@ -22,36 +22,39 @@ def javaindex(request):
         request.session['jlist'] = [j.q_id for j in jlist]
         return render(request,'index.html',{'latest_question_list': jlist})
     else:
-        return HttpResponse("Please login before continuing.")
+        return HttpResponseRedirect('/')
 
 def javaresult(request):
-    ch = []
-    correct = 0
-    idlist = request.session['jlist']
-    jlist = []
-    for i in idlist:
-        jlist.append(Question.objects.get(pk=i))
-    answers = []
-    for j in jlist:
-        answers.append(j.ans)
+    if request.user.is_authenticated():
+        ch = []
+        correct = 0
+        idlist = request.session['jlist']
+        jlist = []
+        for i in idlist:
+            jlist.append(Question.objects.get(pk=i))
+        answers = []
+        for j in jlist:
+            answers.append(j.ans)
 
-    for i in range(1,11):
-        s = request.POST.get(str(i))
-        if s:
-            question, choice = s.split('-')
-            ch.append(choice)
-        else:
-            ch.append(None)
+        for i in range(1,11):
+            s = request.POST.get(str(i))
+            if s:
+                question, choice = s.split('-')
+                ch.append(choice)
+            else:
+                ch.append(None)
 
-    for i in range(0,10):
-        if ch[i] == answers[i]:
-            correct+=1
+        for i in range(0,10):
+            if ch[i] == answers[i]:
+                correct+=1
 
-    lisst = zip(jlist,ch)
+        lisst = zip(jlist,ch)
 
-    up = Userprof.objects.create(username=request.user.username,subject='java',score=correct)
+        up = Userprof.objects.create(username=request.user.username,subject='java',score=correct)
 
-    return render(request,'result.html',{'qlist':lisst,'score':correct})
+        return render(request,'result.html',{'qlist':lisst,'score':correct})
+    else:
+        return HttpResponseRedirect('/')
 
 # def mixindex(request):
 #     # if request.user.is_authenticated():
@@ -82,71 +85,83 @@ def phpindex(request):
         request.session['phplist'] = [p.q_id for p in phplist]
         return render(request,'index.html',{'latest_question_list': phplist})
     else:
-        return HttpResponse("Please login before continuing.")
+        return HttpResponseRedirect('/')
 
 def phpresult(request):
-    ch = []
-    correct = 0
-    idlist = request.session['phplist']
-    phplist = []
-    for i in idlist:
-        phplist.append(Phpquestion.objects.get(pk=i))
-    answers = []
-    for p in phplist:
-        answers.append(p.ans)
+    if request.user.is_authenticated():
+        ch = []
+        correct = 0
+        idlist = request.session['phplist']
+        phplist = []
+        for i in idlist:
+            phplist.append(Phpquestion.objects.get(pk=i))
+        answers = []
+        for p in phplist:
+            answers.append(p.ans)
 
-    for i in range(1,11):
-        s = request.POST.get(str(i))
-        if s:
-            question, choice = s.split('-')
-            ch.append(choice)
-        else:
-            ch.append(None)
-    
-    for i in range(0,10):
-        if ch[i] == answers[i]:
-            correct+=1
+        for i in range(1,11):
+            s = request.POST.get(str(i))
+            if s:
+                question, choice = s.split('-')
+                ch.append(choice)
+            else:
+                ch.append(None)
+        
+        for i in range(0,10):
+            if ch[i] == answers[i]:
+                correct+=1
 
-    lisst = zip(phplist,ch)
+        lisst = zip(phplist,ch)
 
-    up = Userprof.objects.create(username=request.user.username,subject='php',score=correct)
+        up = Userprof.objects.create(username=request.user.username,subject='php',score=correct)
 
-    return render(request,'result.html',{'qlist':lisst,'score':correct})
+        return render(request,'result.html',{'qlist':lisst,'score':correct})
+    else:
+        return HttpResponseRedirect('/')
 
 def show_perfindex(request):
-    userj = Userprof.objects.filter(username__exact=request.user.username,subject__exact='java')
-    userp = Userprof.objects.filter(username__exact=request.user.username,subject__exact='php')
-    return render(request,'performance.html',{'userj':userj,'userp':userp})
-    
-def show_javachart(request):
-    userss = Userprof.objects.filter(username__exact=request.user.username,subject__exact='java')
-    c=1
-    array = [['TestNumber', 'Java'],[0,0]]
-    tickcount = [0]
-    for u in userss:
-        temp=[]
-        temp.append(int(c))
-        temp.append(int(u.score))
-        array.append(temp)
-        tickcount.append(c)
-        c+=1
+    if request.user.is_authenticated():
+        userj = Userprof.objects.filter(username__exact=request.user.username,subject__exact='java')
+        userp = Userprof.objects.filter(username__exact=request.user.username,subject__exact='php')
+        return render(request,'performance.html',{'userj':userj,'userp':userp})
+    else:
+        return HttpResponseRedirect('/')
 
-    return render(request,'chart.html', {'array': json.dumps(array),'tickcount':json.dumps(tickcount)})
+def show_javachart(request):
+    if request.user.is_authenticated():
+        userss = Userprof.objects.filter(username__exact=request.user.username,subject__exact='java')
+        c=1
+        array = [['TestNumber', 'Java'],[0,0]]
+        tickcount = [0]
+        for u in userss:
+            temp=[]
+            temp.append(int(c))
+            temp.append(int(u.score))
+            array.append(temp)
+            tickcount.append(c)
+            c+=1
+
+        return render(request,'chart.html', {'array': json.dumps(array),'tickcount':json.dumps(tickcount)})
+    else:
+        return HttpResponseRedirect('/')
 
 def show_phpchart(request):
-    userss = Userprof.objects.filter(username__exact=request.user.username,subject__exact='php')
-    c=1
-    array = [['TestNumber', 'PHP'],[0,0]]
-    tickcount = [0]
-    for u in userss:
-        temp=[]
-        temp.append(int(c))
-        temp.append(int(u.score))
-        array.append(temp)
-        tickcount.append(c)
-        c+=1
+    if request.user.is_authenticated():
+        userss = Userprof.objects.filter(username__exact=request.user.username,subject__exact='php')
+        c=1
+        array = [['TestNumber', 'PHP'],[0,0]]
+        tickcount = [0]
+        for u in userss:
+            temp=[]
+            temp.append(int(c))
+            temp.append(int(u.score))
+            array.append(temp)
+            tickcount.append(c)
+            c+=1
 
-    return render(request,'chart.html', {'array': json.dumps(array),'tickcount':json.dumps(tickcount)})
+        return render(request,'chart.html', {'array': json.dumps(array),'tickcount':json.dumps(tickcount)})
+    else:
+        return HttpResponseRedirect('/')
 
 def contact(request):
     form_class = ContactForm
@@ -154,28 +169,17 @@ def contact(request):
     # new logic!
     if request.method == 'POST':
         form = form_class(data=request.POST)
-
         if form.is_valid():
-            contact_name = request.POST.get(
-                'contact_name'
-            , '')
-            contact_email = request.POST.get(
-                'contact_email'
-            , '')
+            contact_name = request.POST.get('contact_name', '')
+            contact_email = request.POST.get('contact_email', '')
             form_content = request.POST.get('content', '')
-            
             FormObj = ContactDetails(username=contact_name,email=contact_email,content=form_content)
             FormObj.save()
             # Email the profile with the 
             # contact information
             template = get_template('polls/contact_template.txt')
-            context = {
-                'contact_name': contact_name,
-                'contact_email': contact_email,
-                'form_content': form_content,
-            }
+            context = {'contact_name': contact_name,'contact_email': contact_email,'form_content': form_content,}
             content = template.render({'context':context})
-
             email = EmailMessage(
                 "New contact form submission",
                 content,
@@ -185,10 +189,7 @@ def contact(request):
             )
             email.send()
             return HttpResponseRedirect('contact')
-
-    return render(request, 'polls/contact.html', {
-        'form': form_class,
-    })
+    return render(request, 'polls/contact.html', {'form': form_class,})
 
 def submitq(request):
     form_class = QuestionForm
@@ -198,12 +199,8 @@ def submitq(request):
         form = form_class(data=request.POST)
 
         if form.is_valid():
-            contact_name = request.POST.get(
-                'contact_name'
-            , '')
-            contact_email = request.POST.get(
-                'contact_email'
-            , '')
+            contact_name = request.POST.get('contact_name', '')
+            contact_email = request.POST.get('contact_email', '')
             form_content = request.POST.get('content', '')
             FormObj = UserQuestions(username=contact_name,email=contact_email,question=form_content)
             FormObj.save()
@@ -227,29 +224,15 @@ def submitq(request):
             email.send()
             return HttpResponseRedirect('/submitq')
 
-    return render(request, 'polls/question.html', {
-        'form': form_class,
-    })
+    return render(request, 'polls/question.html', {'form': form_class,})
 
 
 def javaleaderboard(request):
-    # p = Userprof.objects.filter(subject__exact='java').order_by('-score')
     p = Userprof.objects.values('username','subject').annotate(score=Max('score')).order_by('-score')
     jp = p.filter(subject__exact='java')
-    # pp = p.filter(subject__exact='php')
-    # print jp
-    # print pp
-    # print p
-    # p = Userprof.objects.annotate(Max('score'))
     return render(request, 'polls/leaderboard.html',{'p':jp})
 
 def phpleaderboard(request):
-    # p = Userprof.objects.filter(subject__exact='java').order_by('-score')
     p = Userprof.objects.values('username','subject').annotate(score=Max('score')).order_by('-score')
-    # jp = p.filter(subject__exact='java')
     pp = p.filter(subject__exact='php')
-    # print jp
-    # print pp
-    # print p
-    # p = Userprof.objects.annotate(Max('score'))
     return render(request, 'polls/leaderboard.html',{'p':pp})

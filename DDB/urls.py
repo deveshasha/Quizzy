@@ -15,23 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-# from polls.views import *
-# from login.views import *
 from . import views
 import login.views
 import polls.views
 
 
 urlpatterns = [
-    #url(r'^test/ctest/$',views.index),
-    #url(r'^polls/', include('polls.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^login/', login.views.user_login),
     url(r'^logout/$', login.views.logout_page),
     url(r'^register/$', login.views.register),
     url(r'^register/success/', login.views.register_success),
     url(r'^$', views.home),
-    #url(r'^test/',include('polls.urls')),
     url(r'^contact',polls.views.contact),
     url(r'^test/',include('polls.urls')),
     url(r'submitq/$',polls.views.submitq),
