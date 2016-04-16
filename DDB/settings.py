@@ -107,6 +107,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'php.sqlite3'),
     },
+    'pythondb':{
+    	'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'python.sqlite3'),	
+    },
 }
 
 DATABASE_ROUTERS = ['polls.router.pollsRouter']

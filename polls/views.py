@@ -7,7 +7,7 @@ from django.core.mail import EmailMessage
 from django.template import Context
 from django.core import serializers
 from django.db.models import Max
-from .models import Question,Phpquestion,Userprof,ContactDetails,UserQuestions
+from .models import Question,Phpquestion,Userprof,ContactDetails,UserQuestions,Pythonquestion
 from polls.forms import *
 
 
@@ -119,11 +119,54 @@ def phpresult(request):
     else:
         return HttpResponseRedirect('/')
 
+def pythonindex(request):
+    if request.user.is_authenticated():
+        pypool = list(Pythonquestion.objects.all())
+        random.shuffle(pypool)
+        pylist = pypool[:10]
+        request.session['pylist'] = [p.q_id for p in pylist]
+        return render(request,'index.html',{'latest_question_list': pylist})
+    else:
+        return HttpResponseRedirect('/')
+
+def pythonresult(request):
+    if request.user.is_authenticated():
+        ch = []
+        correct = 0
+        idlist = request.session['pylist']
+        pylist = []
+        for i in idlist:
+            pylist.append(Pythonquestion.objects.get(pk=i))
+        answers = []
+        for p in pylist:
+            answers.append(p.ans)
+
+        for i in range(1,11):
+            s = request.POST.get(str(i))
+            if s:
+                question, choice = s.split('-')
+                ch.append(choice)
+            else:
+                ch.append(None)
+
+        for i in range(0,10):
+            if ch[i] == answers[i]:
+                correct+=1
+
+        lisst = zip(pylist,ch)
+
+        up = Userprof.objects.create(username=request.user.username,subject='python',score=correct)
+
+        return render(request,'result.html',{'qlist':lisst,'score':correct})
+    else:
+        return HttpResponseRedirect('/')
+
 def show_perfindex(request):
     if request.user.is_authenticated():
         userj = Userprof.objects.filter(username__exact=request.user.username,subject__exact='java')
         userp = Userprof.objects.filter(username__exact=request.user.username,subject__exact='php')
-        return render(request,'performance.html',{'userj':userj,'userp':userp})
+        userpy = Userprof.objects.filter(username__exact=request.user.username,subject__exact='python')
+        return render(request,'performance.html',{'userj':userj,'userp':userp,'userpy':userpy})
     else:
         return HttpResponseRedirect('/')
 
@@ -150,6 +193,24 @@ def show_phpchart(request):
         userss = Userprof.objects.filter(username__exact=request.user.username,subject__exact='php')
         c=1
         array = [['TestNumber', 'PHP'],[0,0]]
+        tickcount = [0]
+        for u in userss:
+            temp=[]
+            temp.append(int(c))
+            temp.append(int(u.score))
+            array.append(temp)
+            tickcount.append(c)
+            c+=1
+
+        return render(request,'chart.html', {'array': json.dumps(array),'tickcount':json.dumps(tickcount)})
+    else:
+        return HttpResponseRedirect('/')
+
+def show_pychart(request):
+    if request.user.is_authenticated():
+        userss = Userprof.objects.filter(username__exact=request.user.username,subject__exact='python')
+        c=1
+        array = [['TestNumber', 'Python'],[0,0]]
         tickcount = [0]
         for u in userss:
             temp=[]
@@ -226,13 +287,23 @@ def submitq(request):
 
     return render(request, 'polls/question.html', {'form': form_class,})
 
+def showleadindex(request):
+    return render(request,'polls/mainleaderboard.html')
 
 def javaleaderboard(request):
     p = Userprof.objects.values('username','subject').annotate(score=Max('score')).order_by('-score')
     jp = p.filter(subject__exact='java')
-    return render(request, 'polls/leaderboard.html',{'p':jp})
+    subj = 'Java'
+    return render(request, 'polls/leaderboard.html',{'p':jp,'subj':subj})
 
 def phpleaderboard(request):
     p = Userprof.objects.values('username','subject').annotate(score=Max('score')).order_by('-score')
     pp = p.filter(subject__exact='php')
-    return render(request, 'polls/leaderboard.html',{'p':pp})
+    subj = 'PHP'
+    return render(request, 'polls/leaderboard.html',{'p':pp,'subj':subj})
+
+def pyleaderboard(request):
+    p = Userprof.objects.values('username','subject').annotate(score=Max('score')).order_by('-score')
+    pp = p.filter(subject__exact='python')
+    subj = 'Python'
+    return render(request, 'polls/leaderboard.html',{'p':pp,'subj':subj})

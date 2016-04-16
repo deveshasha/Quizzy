@@ -1,32 +1,43 @@
 {% extends "footer.html" %}
 {% load staticfiles %}
 {% block body %}
+
   <br>
-<div style="margin-left:20%" >
-Click Java or PHP...<br><br>
-  <a href="/javaleaderboard">Java</a><br><br>
-  <a href="/phpleaderboard">PHP</a>
-</div>
+  {% if p %}    
+  <span><h5 style="margin-left: 15%">{{subj}} Leaderboard:</h5></span>
+  {% endif %}
   <div class="container">
-    <table class="highlight">
-        <thead>
-          <tr>
-              <th data-field="id">Rank</th>
-              <th data-field="name">Username</th>
-              <th data-field="price">Score</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for i in p %}
-          <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>{{ i.username }}</td>
-            <td>{{ i.score }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
+    {% if p %}
+            <table class="highlight">
+                <thead>
+                  <tr>
+                      <th data-field="id">Rank</th>
+                      <th data-field="name">Username</th>
+                      <th data-field="price">Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for i in p %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.username }}</td>
+                    <td>{{ i.score }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
 
-      </table>
+              </table>
 
+              <a class="dropdown-button waves-effect waves-light btn" data-beloworigin="true" data-activates="dropdown3">Choose Subject ▼</a>
+              <ul id='dropdown3' class='dropdown-content'>
+                <li><a href="/javaleaderboard">Java</a></li>
+                <li><a href="/phpleaderboard">PHP</a></li>
+                <li><a href="/pyleaderboard">Python</a></li>
+              </ul>
+  {% else %}
+        <br><br><br><br>
+        <h4>This test has not been taken by any user. Be the first to take a test.<br><a href="/test">Start Here</a></h4>
+        <br><br><br><br><br><br>
+  {% endif %}
   </div>
 {% endblock %}

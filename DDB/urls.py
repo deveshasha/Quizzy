@@ -34,7 +34,10 @@ urlpatterns = [
     url(r'^submitq/$',polls.views.submitq),
     url(r'^javachart/',polls.views.show_javachart),
     url(r'^phpchart/',polls.views.show_phpchart),
+    url(r'^pychart/',polls.views.show_pychart),
     url(r'^performance/',polls.views.show_perfindex),
+    url(r'^leaderboard/',polls.views.showleadindex),
     url(r'^javaleaderboard/',polls.views.javaleaderboard),
     url(r'^phpleaderboard/',polls.views.phpleaderboard),
+    url(r'^pyleaderboard/',polls.views.pyleaderboard),
 ]

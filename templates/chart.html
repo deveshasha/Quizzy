@@ -38,17 +38,5 @@
     <br>
     <!--Div that will hold the bitchass line chart-->
     <div id="chart_div"></div>
-  <!--  Scripts-->
-  <script type="text/javascript">
-  function is_user () {
-    // body...
-    {% if user.is_authenticated %}
-      return true;
-    {% else %}
-      alert('Please Login or Register before continuing.');
-      return false;
-    {% endif %}
-  }
-  </script>
  
 {% endblock %}

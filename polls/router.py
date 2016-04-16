@@ -5,8 +5,8 @@ class pollsRouter(object):
             return 'questiondb'
         if model._meta.db_table == 'phpQuestion':
         	return 'phpQuestion'
-        # if model._meta.db_table == 'userprof':
-        #     return 'questiondb'
+        if model._meta.db_table == 'Pythonquestion':
+            return 'pythondb'
         return None
 
     def db_for_write(self,model, **hints):
@@ -14,4 +14,6 @@ class pollsRouter(object):
             return 'questiondb'
         if model._meta.db_table == 'phpQuestion':
             return 'phpQuestion'
+        if model._meta.db_table == 'Pythonquestion':
+            return 'pythondb'
         return None

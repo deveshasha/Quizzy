@@ -1,42 +1,39 @@
 {% extends "footer.html" %}
 {% load staticfiles %}
 {% block body %}
-  {% if not userj %}
-      {% if not userp %}
-      <div class="card-panel">
+  <div class="card-panel">
+      {% if not userj and not userp and not userpy %}
         <span class="blue-text text-darken-2"><h5 style="margin-left: 14%">You have no test scores to show :( <br>Take a test now...</h5></span>
-      </div>
-      <div class="container">
-        <div class="section">
-          <div class="row">
-
-            <div class="col s6 m4">
-              <div class="card">
-                <div class="card-image">
-                  <img src="{% static 'images/C.jpg' %}" class="responsive-img">
-                </div>
-                <div class="card-content">
-                  <p>C is one of the most widely used programming languages of all time, and C compilers are available for the majority of available computer architectures and operating systems.</p>
-                </div>
-                <div class="card-action">
-                  <a href="" style="color:#000099" onclick="return is_user()">Take A Test</a>
-                </div>
-              </div>
-            </div>
-
+      {% else %}
+        <span class="blue-text text-darken-2"><h5 style="margin-left: 14%">Checkout your performance charts :<h5></span>
+      {% endif %}
+    </div>
+    <div class="container">
+      <div class="section">
+        <div class="row">
           <div class="col s6 m4">
             <div class="card">
               <div class="card-image">
                 <img src="{% static 'images/java.jpg' %}" class="responsive-img">
               </div>
-              <div class="card-content">
-                <p>Java remains a developer favourite because it's secure,robust and relatively simple.More than 95% of enterprise desktops run Java.After C, Java ranks No. 2 in popularity.</p>
-              </div>
-              <div class="card-action">
-              <a href="/test/jtest" style="color:#000099" onclick="return is_user()" >Take A Test</a>
-              </div>
+            <div class="card-content">
+              {% if userj %}
+              <p>A chart showing your performance in all the Java tests you have taken.</p>
+              {% else %}
+              <p>You have not taken any Java tests.<br><br></p>
+              {% endif %}
             </div>
-        </div>
+              {% if userj %}
+              <div class="card-action">
+                <a href="/javachart" style="color:#000099" onclick="return is_user()" >See chart</a>
+              </div>
+              {% else %}
+              <div class="card-action">
+                <a href="/test/jtest" style="color:#000099" onclick="return is_user()" >Take A Test</a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
 
         <div class="col s6 m4">
           <div class="card">
@@ -45,113 +42,52 @@
              
             </div>
             <div class="card-content">
-              <p>PHP was originally designed to create dynamic and more interactive web pages. It is the most widely-used, open-source and general-purpose scripting language.</p>
+              {% if userp %}
+              <p>A chart showing your performance in all the PHP tests you have taken.</p>
+              {% else %}
+              <p>You have not taken any PHP tests.<br><br></p>
+              {% endif %}
             </div>
-            <div class="card-action">
-              <a href="/test/phptest" style="color:#000099" onclick="return is_user()" >Take A Test</a>
-            </div>
+             {% if userp %}
+              <div class="card-action">
+                <a href="/phpchart" style="color:#000099" onclick="return is_user()" >See chart</a>
+              </div>
+              {% else %}
+              <div class="card-action">
+                <a href="/test/phptest" style="color:#000099" onclick="return is_user()" >Take A Test</a>
+              </div>
+              {% endif %}
           </div>
         </div>
+
+        <div class="col s6 m4">
+          <div class="card">
+            <div class="card-image">
+              <img src="{% static 'images/python.png' %}" class="responsive-img">
+             
+            </div>
+            <div class="card-content">
+              {% if userpy %}
+              <p>A chart showing your performance in all the Python tests you have taken.</p>
+              {% else %}
+              <p>You have not taken any Python tests.<br><br></p>
+              {% endif %}
+            </div>
+             {% if userpy %}
+              <div class="card-action">
+                <a href="/pychart" style="color:#000099" onclick="return is_user()" >See chart</a>
+              </div>
+              {% else %}
+              <div class="card-action">
+                <a href="/test/pytest" style="color:#000099" onclick="return is_user()" >Take A Test</a>
+              </div>
+              {% endif %}
+          </div>
       </div>
-</div>
-</div>
-  {% endif %}
-  {% endif %}
-
-  {% if userj %}
-    {% if not userp %}
-    <div class="card-panel">
-      <span class="blue-text text-darken-2"><h5 style="margin-left: 14%">Checkout your performance charts :<h5></span>
-    </div>
-    <div class="container">
-    <div class="section">
-    <div class="row">
-    <div class="col s6 m4">
-          <div class="card">
-            <div class="card-image">
-              <img src="{% static 'images/java.jpg' %}" class="responsive-img">
-             
-            </div>
-            <div class="card-content">
-              <p>A chart showing your performance in all the Java tests you have taken.</p>
-            </div>
-            <div class="card-action">
-              <a href="/javachart" style="color:#000099" onclick="return is_user()" >See chart</a>
-            </div>
-          </div>
     </div>
     </div>
     </div>
-    </div>
-  {% endif %}
-  {% endif %}
-
-  {% if userp %}
-  {% if not userj %}
-  <div class="card-panel">
-      <span class="blue-text text-darken-2"><h5 style="margin-left: 14%">Checkout your performance charts :<h5></span>
-    </div>
-    <div class="container">
-    <div class="section">
-    <div class="row">
-
-       <div class="col s6 m4">
-          <div class="card">
-            <div class="card-image">
-              <img src="{% static 'images/php.png' %}" class="responsive-img">
-             
-            </div>
-            <div class="card-content">
-              <p>A chart showing your performance in all the PHP tests you have taken.</p>
-            </div>
-            <div class="card-action">
-              <a href="/phpchart" style="color:#000099" onclick="return is_user()" >See chart</a>
-            </div>
-          </div>
-    </div>
-  {% endif %}
-  {% endif %}
   
-  {% if userj and userp %}
-  <div class="card-panel">
-      <span class="blue-text text-darken-2"><h5 style="margin-left: 14%">Checkout your performance charts :<h5></span>
-    </div>
-    <div class="container">
-    <div class="section">
-    <div class="row">
-    <div class="col s6 m4">
-          <div class="card">
-            <div class="card-image">
-              <img src="{% static 'images/java.jpg' %}" class="responsive-img">
-             
-            </div>
-            <div class="card-content">
-              <p>A chart showing your performance in all the Java tests you have taken.</p>
-            </div>
-            <div class="card-action">
-              <a href="/javachart" style="color:#000099" onclick="return is_user()" >See chart</a>
-            </div>
-          </div>
-    </div>
-
-    <div class="col s6 m4">
-          <div class="card">
-            <div class="card-image">
-              <img src="{% static 'images/php.png' %}" class="responsive-img">
-             
-            </div>
-            <div class="card-content">
-              <p>A chart showing your performance in all the PHP tests you have taken.</p>
-            </div>
-            <div class="card-action">
-              <a href="/phpchart" style="color:#000099" onclick="return is_user()" >See chart</a>
-            </div>
-          </div>
-      </div>
-    </div>
-    </div>
-    </div>
-  {% endif %}
   <script type="text/javascript">
   function is_user () {
     // body...
