@@ -1,4 +1,5 @@
 import random,json
+from itertools import chain
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate, login,logout
@@ -56,26 +57,50 @@ def javaresult(request):
     else:
         return HttpResponseRedirect('/')
 
-# def mixindex(request):
-#     # if request.user.is_authenticated():
-#     #     pool = list(Phpquestion.objects.all())
-#     #     random.shuffle(pool)
-#     #     mlist = pool[:5]
-#     #     pool = list(Question.objects.all())
-#     #     random.shuffle(pool)
-#     #     nlist = pool[:5]
-#     #     mlist.append(nlist)
-#     #     return render(request,'index.html',{'latest_question_list':mlist})
-#     if request.user.is_authenticated():
-#         phppool = list(Mixquestion.objects.all())
-#         random.shuffle(phppool)
-#         phplist = phppool[:10]
-#         request.session['phplist'] = [p.q_id for p in phplist]
-#         return render(request,'index.html',{'latest_question_list': phplist})
-#     else:
-#         return HttpResponse("Please login before continuing.")
+def mixindex(request):
+    if request.user.is_authenticated():
+        jpool = Question.objects.all()
+        ppool = Phpquestion.objects.all()
+        pypool = Pythonquestion.objects.all()
+        mixlist = list(chain(jpool,ppool,pypool))
+        random.shuffle(mixlist)
+        mlist = mixlist[:10]
+        request.session['mlist'] = [m.all_id for m in mlist]
+        return render(request,'index.html',{'latest_question_list': mlist})
+    else:
+        return HttpResponseRedirect('/')
 
-
+def mixresult(request):
+    if request.user.is_authenticated():
+        ch = []
+        correct = 0
+        idlist = request.session['mlist']
+        qlist = []
+        for i in idlist:
+            if i>=1 and i<=31:
+                qlist.append(Question.objects.get(all_id=i))
+            elif i>=32 and i<=61:
+                qlist.append(Phpquestion.objects.get(all_id=i))
+            else:
+                qlist.append(Pythonquestion.objects.get(all_id=i))
+        answers = []
+        for q in qlist:
+            answers.append(q.ans)
+        for i in range(1,11):
+            s = request.POST.get(str(i))
+            if s:
+                question,choice = s.split('-')
+                ch.append(choice)
+            else:
+                ch.append(None)
+        for i in range(0,10):
+            if ch[i] == answers[i]:
+                correct+=1
+        lisst = zip(qlist,ch)
+        # u = Userprof.objects create
+        return render(request,'result.html',{'qlist':lisst,'score':correct})
+    else:
+        return HttpResponseRedirect('/')
 
 def phpindex(request):
     if request.user.is_authenticated():
@@ -307,3 +332,9 @@ def pyleaderboard(request):
     pp = p.filter(subject__exact='python')
     subj = 'Python'
     return render(request, 'polls/leaderboard.html',{'p':pp,'subj':subj})
+
+def handler404(request):
+    return render(request,'404.html')
+
+def handler500(request):
+    return render(request,'500.html')
