@@ -29,46 +29,58 @@
             <a href="/" alt="" class="responsive-img valign profile-image-login" style="font-family: 'Amaranth', sans-serif;font-size:300%;color: black "><i class="material-icons">code</i>&nbspQuizzy</a>
           </div>
         </div>
+        {{ form.non_field_errors }}
         <div class="row margin">
+          <span style="margin-left: 5%">{{ form.username.errors }}</span>
           <div class="input-field col s12">
             <i class="mdi-social-person-outline prefix"></i>
-            <input id="username" type="text" class="validate" required>
-            <label for="username" class="center-align">Username</label>
+            <label for="{{ form.username.id_for_label }}" class="center-align">Username</label>
+             {{ form.username }}
           </div>
         </div>
         <div class="row margin">
+          <span style="margin-left: 50%">{{ form.email.errors }}</span>
           <div class="input-field col s12">
             <i class="mdi-communication-email prefix"></i>
-            <input id="email" type="email" class="validate" required>
-            <label for="email" class="center-align">Email</label>
+            <label for="{{ form.email.id_for_label }}" class="center-align">Email</label>
+             {{ form.email }}
           </div>
         </div>
         <div class="row margin">
+          <span style="margin-left: 5%">{{ form.password1.errors }}</span>
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password" class="validate" required>
-            <label for="password">Password</label>
+            <label for="{{ form.password1.id_for_label }}">Password</label>
+             {{ form.password1 }}
           </div>
         </div>
         <div class="row margin">
+          <span style="margin-left: 5%">{{ form.password2.errors }}</span>
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <input id="password-again" type="password" required>
-            <label for="password-again">Re-type password</label>
+            <label for="{{ form.password2.id_for_label }}">Re-type password</label>
+             {{ form.password2 }}
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s12">
-            <a href="/register/success"><button class="btn waves-effect waves-light" type="submit" value="Register" />Register Now!</button>
-          </div>
-          <div class="input-field col s12">
-            <p class="margin center medium-small sign-up">Already have an account? <a href="/login">Login</a></p>
+            <div class="input-field col s12">
+            <a href="/register/success"><button class="btn waves-effect waves-light" type="submit" value="Register" />Register Now !</button></a>
           </div>
         </div>
       </form>
+          <div class="input-field col s12">
+            <p class="margin center medium-small sign-up">Already have an account? <a href="/login">Login</a></p>
+          </div>
     </div>
   </div>
 </div>
+
+
+{% if msg %}
+<script type="text/javascript">
+  alert("{{ msg }}");
+</script>
+{% endif %}
    
 </body> 
 
