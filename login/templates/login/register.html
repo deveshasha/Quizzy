@@ -5,18 +5,70 @@
 
 <body style="background-image:url({% static 'images/4.jpg' %});background-size:100%;background-repeat:no-repeat;">
 
-<div class="container">
+<!-- <div class="container">
     <form method="post" action=".">{% csrf_token %}
-        <table class = "myClass" border="0" style="font-size:120%;">
-            {{ form.as_p }}
-        </table>
+        <fieldset>
+                <ul>
+                    {{ form.as_p }}
+                </ul>
+            </fieldset>    
         <a href="/register/success"><button class="btn waves-effect waves-light" type="submit" value="Register" />Register</button> 
 
     </form>
     <a href="/login/"><button class="btn waves-effect waves-light">Login</button>
     </a>
-  </div>
+  </div> -->
     <br>
+
+<div class="container">
+    <div class="row">
+    <div class="col s12 z-depth-6 card-panel">
+      <form method="post" action=".">{% csrf_token %}
+        <div class="row">
+          <div class="input-field col s12 center">
+            <a href="/" alt="" class="responsive-img valign profile-image-login" style="font-family: 'Amaranth', sans-serif;font-size:300%;color: black "><i class="material-icons">code</i>&nbspQuizzy</a>
+          </div>
+        </div>
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="mdi-social-person-outline prefix"></i>
+            <input id="username" type="text" class="validate" required>
+            <label for="username" class="center-align">Username</label>
+          </div>
+        </div>
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="mdi-communication-email prefix"></i>
+            <input id="email" type="email" class="validate" required>
+            <label for="email" class="center-align">Email</label>
+          </div>
+        </div>
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="mdi-action-lock-outline prefix"></i>
+            <input id="password" type="password" class="validate" required>
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="mdi-action-lock-outline prefix"></i>
+            <input id="password-again" type="password" required>
+            <label for="password-again">Re-type password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <a href="/register/success"><button class="btn waves-effect waves-light" type="submit" value="Register" />Register Now!</button>
+          </div>
+          <div class="input-field col s12">
+            <p class="margin center medium-small sign-up">Already have an account? <a href="/login">Login</a></p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
    
 </body> 
 
