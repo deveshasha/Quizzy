@@ -16,22 +16,70 @@
         google.maps.event.addDomListener(window, 'load', init_map);
   </script>
 </head>
+<body>
+ <div class="container">
+     <h3 class="center-align"><i class="material-icons">contacts</i>&nbspContact Us</h3>
+     <!-- <form role="form" action="" method="post">
+       {% csrf_token %}
+       {{ form.as_p }}
+       <button type="submit">Submit</button>
+        </form> -->
+  
+ </div>
 
-  <div class="container">
-  <div class="row">
-    <div class="col s9 center">
-      <h3>Contact Us</h3>
-      <form role="form" action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-    <div class="col s11">
-      <h4>Wish to submit a Question?&nbsp<a href="/submitq" class="black-text">Click Here!</a></h4>
-  </div>
+ 
+
+<div class="container">
+    <div class="row">
+    <div class="col s9 z-depth-6 card-panel">
+      <form method="post" action="">{% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="row margin">
+          <span style="margin-left: 5%">{{ form.contact_name.errors }}</span>
+          <div class="input-field col s12">
+            <i class="mdi-social-person-outline prefix"></i>
+            <label for="{{ form.contact_name.id_for_label }}" class="center-align">Name</label>
+             {{ form.contact_name }}
+          </div>
+        </div>
+        <div class="row margin">
+          <span style="margin-left: 5%">{{ form.contact_email.errors }}</span>
+          <div class="input-field col s12">
+            <i class="mdi-communication-email prefix"></i>
+            <label for="{{ form.email.id_for_label }}" class="center-align">Email</label>
+             {{ form.contact_email }}
+          </div>
+        </div>
+        <div class="row margin">
+          <span style="margin-left: 5%">{{ form.content.errors }}</span>
+          <div class="input-field col s12">
+            <i class="mdi-action-lock-outline prefix"></i>
+            <label for="{{ form.content.id_for_label }}">Content</label>
+             {{ form.content }}
+          </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+            <button data-target="modal1" class="btn modal-trigger" type="submit">Submit</button>
+          </div>
+        </div>
+
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <h5>Your response has been received.</h5>
+          </div>
+        </div>
+
+      </form>
+       <div class="col s11">
+            <h4>Wish to submit a Question?&nbsp<a href="/submitq" class="black-text">Click Here!</a></h4>
+        </div>
+    </div>
   </div>
 </div>
-</div>
+
+
+
 
 <div class="container">
   <div class="row">
@@ -83,6 +131,7 @@ $(document).ready(function(){
   });
   
 </script>
+</body>
  
  {% endblock %}
 
