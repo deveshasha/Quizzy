@@ -25,7 +25,8 @@
     {% if user.is_authenticated %}
       return true;
     {% else %}
-      alert('Please Login or Register before continuing.');
+      window.location = "/login"
+      //alert('Please Login or Register before continuing.');
       return false;
     {% endif %}
   }
